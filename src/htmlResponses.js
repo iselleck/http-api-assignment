@@ -11,6 +11,5 @@ const getIndex = (request, response) => {
 };
 
 
-
 module.exports.getIndex = getIndex;
 
