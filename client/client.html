@@ -5,11 +5,51 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
-  <script type="text/babel">
-
+    <script type="text/javascript">
+        
+        
+    function loadFile(){
+        var theType = document.getElementById("type");
+        var thePage = document.getElementById("page");
+        var sendPage = thePage.options[thePage.selectedIndex].value;
+        var sendType = theType.options[theType.selectedIndex].value;
+       // console.log(sendType,  sendPage);
+        
+        var xhttp = new XMLHttpRequest();
+       xhttp.onreadystatechange = function() {
+            if(this.readyState == 4 ) {
+                sendStats(xhttp.responseText, xhttp.status, xhttp.getResponseHeader('Content-Type'));
+                console.log(xhttp.responseText);
+         }
+        };
+       
+        
+        xhttp.open("GET", sendPage, true);
+        xhttp.setRequestHeader("content-type", sendType);
+        xhttp.send();
+    }
+        
+        
+        function sendStats(result, status, type) {
+        
+             if(type == "application/json"){
+                 var json = JSON.parse(result);
+                 document.getElementById("content").innerHTML = "Message: " + json.message;
+             } else if (type == "text/xml") {
+                 var parser = new DOMParser();
+                 var xmlDoc = parser.parseFromString(result, "text/xml");
+                 
+                 document.getElementById("content").innerHTML = "Message: " + xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+             }
+        }
+        
+     
+     
   </script>
+
 </head>
-<body>
+
+    <body>
   <section id="top">
     <h3>Status Code Tests</h3>
     <select id="page">
@@ -25,7 +65,7 @@
       <option value="application/json">JSON</option>
       <option value="text/xml">XML</option>
     </select>
-    <button id="send">Send</button>
+    <button id="send" onClick="loadFile()">Send</button>
   </section>
   <section id="content">
   </section>
