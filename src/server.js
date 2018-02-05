@@ -13,6 +13,7 @@ const onRequest = (request, response) => {
   const headers = request.headers;
 
   switch (request.url) {
+    
     case '/':
       htmlHandler.getIndex(request, response);
       break;

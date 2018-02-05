@@ -9,11 +9,12 @@
         
         
     function loadFile(){
+
         var theType = document.getElementById("type");
         var thePage = document.getElementById("page");
         var sendPage = thePage.options[thePage.selectedIndex].value;
         var sendType = theType.options[theType.selectedIndex].value;
-       // console.log(sendType,  sendPage);
+       
         
         var xhttp = new XMLHttpRequest();
        xhttp.onreadystatechange = function() {

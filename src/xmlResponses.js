@@ -9,6 +9,7 @@ const getSuccess = (request, response) => {
 };
 
 const getBadRequest = (request, response) => {
+  
   response.writeHead(400, {
     'Content-Type': 'text/xml',
   });
